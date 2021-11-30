@@ -1,0 +1,1099 @@
+/* Creating Customer_master TABLE */
+
+CREATE TABLE customer_master
+(
+	customer_id	NUMBER(10) CONSTRAINT cust_id_pk PRIMARY KEY,
+	first_name	VARCHAR2(20) NOT NULL,
+	last_name	VARCHAR2(20) NOT NULL,
+	gender CHAR(6) CONSTRAINT gender_ck CHECK (gender IN ('MALE','FEMALE')),
+	age NUMBER(3)
+);
+
+--Creating Sequence
+CREATE SEQUENCE my
+	START WITH 100
+	INCREMENT BY 1;
+
+--Inserting Values into Customer Master TABLE.
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Nithin','Leo','MALE',22);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Messi','Leonel','MALE',45);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Ronaldo','Cristiano','MALE',55);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'John','Cena','MALE',50);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Robert','Wil','MALE',30);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Vin','Diesel','MALE',40);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Michelle','Rrotriguze','FEMALE',38);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Dwane','Jhonson','MALE',57);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Hasham','Ali','MALE',21);
+INSERT INTO customer_master VALUES (my.NEXTVAL,'Nizam','Hyder','MALE',23);
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/* Creating Customer Address Table
+ Adding CONSTRAINT cust_addr_fk as FOREIGN KEY which references to 
+		PRIMARY KEY(customer_id) in customer_master TABLE
+	Also, giving ON DELETE CASCADE Constraint to it.
+*/
+
+CREATE TABLE customer_address
+(
+	customer_id NUMBER (10) CONSTRAINT cust_addr_fk REFERENCES customer_master(customer_id) ON DELETE CASCADE,
+	street	VARCHAR2(30),
+	city	VARCHAR2(10),
+	state 	VARCHAR2(10),
+	postalcode	NUMBER(10)
+);
+
+
+--Inserting Values into Customer Address TABLE.
+
+INSERT INTO customer_address VALUES (100,'Royal Streets 101H','Hyderabad','Telangana',500040);
+INSERT INTO customer_address VALUES (101,'Brindavan Colony','Warangal','Telangana',540324);
+INSERT INTO customer_address VALUES (102,'Street Guys 112OH','Banjara','Tamil Nadu',839694);
+INSERT INTO customer_address VALUES (103,'TRS Street 1JK','Mysoore','Bangalore',239841);
+INSERT INTO customer_address VALUES (104,'Habibii Colony','Mumbai','Maharastra',489211);
+INSERT INTO customer_address VALUES (105,'Netajis Colony','Bombay','Maharastra',571281);
+INSERT INTO customer_address VALUES (106,'12H Street','Chennai','Tamil Nadu',687191);
+INSERT INTO customer_address VALUES (107,'Niranjaan Colony','kolkatha','WestBengal',772913);
+INSERT INTO customer_address VALUES (108,'Sri Bhavaan Streets 1H','Calcutta','WestBengal',772891);
+INSERT INTO customer_address VALUES (109,'Dr. APJ Abdul Kalam Road','Delhi','New Delhi',668124);
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+/* Creating Customer Fax Master TABLE
+	 Adding customer_id as FOREIGN KYE which references to 
+		PRIMARY KEY(customer_id) in customer_master TABLE
+*/
+
+CREATE TABLE customer_fax_mast
+(
+	customer_id	NUMBER(10) CONSTRAINT cust_fax_fk 
+			REFERENCES customer_master(customer_id) ON DELETE CASCADE,
+	fax_num1	VARCHAR2(20),
+	fax_num2	VARCHAR2(20)
+);
+
+
+--Inserting Values into Customer FAX Master TABLE.
+
+INSERT INTO customer_fax_mast VALUES (100,'+44 (161) 999 8888','');
+INSERT INTO customer_fax_mast VALUES (101,'+44 (791) 889 6491','');
+INSERT INTO customer_fax_mast VALUES (102,'+43 (791) 012 5591','+91 (781) 661 9721');
+INSERT INTO customer_fax_mast VALUES (103,'+49 (471) 764 9010','');
+INSERT INTO customer_fax_mast VALUES (104,'+12 (401) 847 0012','+11 (413) 999 0941');
+INSERT INTO customer_fax_mast VALUES (105,'','');
+INSERT INTO customer_fax_mast VALUES (106,'+44 (001) 019 1103','');
+INSERT INTO customer_fax_mast VALUES (107,'+91 (124) 312 9714','+91 (901) 205 6948');
+INSERT INTO customer_fax_mast VALUES (108,'+77 (781) 771 1234','');
+INSERT INTO customer_fax_mast VALUES (109,'+32 (479) 666 9000','+33 (471) 790 0000');
+
+COMMIT;
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/* Creating Customer Phone Master TABLE
+	 Adding customer_id as FOREIGN KEY which references to 
+		PRIMARY KEY(customer_id) in customer_master TABLE
+		Also, giving ON DELETE CONSTRAINT to it.
+*/
+
+CREATE TABLE customer_phn_mast
+(
+	customer_id NUMBER(10) CONSTRAINT cust_phn_fk 
+				REFERENCES customer_master(customer_id) ON DELETE CASCADE,
+	phone1	NUMBER NOT NULL,
+	phone2	NUMBER
+);
+
+
+--Inserting Values into Customer Phone Master TABLE.
+
+INSERT INTO customer_phn_mast VALUES (100,9391947194,7903018913);
+INSERT INTO customer_phn_mast VALUES (101,7570129301,0571204103);
+INSERT INTO customer_phn_mast VALUES (102,0128012839,4691293504);
+INSERT INTO customer_phn_mast VALUES (103,8801293075,6649123059);
+INSERT INTO customer_phn_mast VALUES (104,5712093122,'');
+INSERT INTO customer_phn_mast VALUES (105,0021938472,5612983127);
+INSERT INTO customer_phn_mast VALUES (106,6219309507,'');
+INSERT INTO customer_phn_mast VALUES (107,0102834721,'');
+INSERT INTO customer_phn_mast VALUES (108,7612300072,'');
+INSERT INTO customer_phn_mast VALUES (109,4712397021,5012821490);
+
+COMMIT;
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/* Creating Customer EmailID Master TABLE
+
+	Adding customer_id as FOREIGN KYE which references to 
+		PRIMARY KEY(customer_id) in customer_master TABLE
+		& Giving ON DELETE Constraint to it.
+
+	Also, Adding UNIQUE and CHECK constraint to email_id variable
+*/
+
+CREATE TABLE customer_email
+(
+	customer_id	NUMBER(10) CONSTRAINT cust_email_fk 
+				REFERENCES customer_master(customer_id) ON DELETE CASCADE,
+	email_id1	VARCHAR2(30) NOT NULL UNIQUE CHECK(regexp_like(email_id1,'([a-z]|[0-9])?@[a-z]')) NOVALIDATE ,
+	email_id2 	VARCHAR2(30) UNIQUE CHECK(regexp_like(email_id2,'([a-z]|[0-9])?@[a-z]')) NOVALIDATE
+);
+
+
+--Inserting Values into Customer Email Master TABLE.
+
+INSERT INTO customer_email VALUES (100,'nithinleo@gmail.com','leo@yahoo.in');
+INSERT INTO customer_email VALUES (101,'messi@gmail.com','');
+INSERT INTO customer_email VALUES (102,'ronaldo@yahoo.in','');
+INSERT INTO customer_email VALUES (103,'john_cena@edu.in','');
+INSERT INTO customer_email VALUES (104,'robert_cool@edu.in','will123@gmail.com');
+INSERT INTO customer_email VALUES (105,'vin_diesel@wipro.in','diesel_per@mail.in');
+INSERT INTO customer_email VALUES (106,'michelle_ro@gmail.com','rotrigueze@ss.in');
+INSERT INTO customer_email VALUES (107,'jhonson_dwane@yahoo.in','');
+INSERT INTO customer_email VALUES (108,'hasham1233@gmail.com','');
+INSERT INTO customer_email VALUES (109,'hyderr_n12@facebook.com','nizamh12@ed.in');
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/*
+	Creating Customer Login Details TABLE to store Customer ID and Password.
+*/
+
+CREATE TABLE customer_login_dtls
+(
+	customer_id NUMBER (10) CONSTRAINT login_fk 
+					REFERENCES customer_master (customer_id),
+	password VARCHAR2(20) NOT NULL
+);
+
+
+--Inserting Values into Customer Login Details TABLE.
+INSERT INTO customer_login_dtls VALUES (100,'nithinleo12');
+INSERT INTO customer_login_dtls VALUES (101,'messi@leo');
+INSERT INTO customer_login_dtls VALUES (102,'ronaldo@123');
+INSERT INTO customer_login_dtls VALUES (103,'john_cena@@');
+INSERT INTO customer_login_dtls VALUES (104,'88robert88');
+INSERT INTO customer_login_dtls VALUES (105,'@@vin@@');
+INSERT INTO customer_login_dtls VALUES (106,'@#michelle12');
+INSERT INTO customer_login_dtls VALUES (107,'d@jhonson@#');
+INSERT INTO customer_login_dtls VALUES (108,'hasham123@ali');
+INSERT INTO customer_login_dtls VALUES (109,'nizam@#h');
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+-- Creating Class Master TABLE
+-- Giving class_id as PRIMARY KEY
+
+CREATE TABLE class_master
+(
+	class_id	NUMBER(2) CONSTRAINT class_id_pk	PRIMARY KEY,
+	name	VARCHAR2(25)
+);
+
+--Inserting values into class_master
+
+INSERT INTO class_master VALUES(00,'Business/Economy Class');
+INSERT INTO class_master VALUES(01,'Business Class');
+INSERT INTO class_master VALUES(02,'Economy Class');
+
+COMMIT;
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+-- Creating City Master TABLE
+-- city_id is a PRIMARY KEY
+
+CREATE TABLE city_mast
+(
+	city_id	CHAR(5) CONSTRAINT city_id_pk PRIMARY KEY,
+	city_name	VARCHAR2(20)
+);
+
+--Inserting values into City_master Table
+
+INSERT INTO city_mast VALUES('HYD','Hyderabad');
+INSERT INTO city_mast VALUES('DL','Delhi');
+INSERT INTO city_mast VALUES('KL','Kolkatha');
+INSERT INTO city_mast VALUES('CHN','Chennai');
+INSERT INTO city_mast VALUES('BGL','Bangalore');
+INSERT INTO city_mast VALUES('MB','Mumbai');
+INSERT INTO city_mast VALUES('PU','Pune');
+INSERT INTO city_mast VALUES('JP','Jaipur');
+INSERT INTO city_mast VALUES('LK','Lucknow');
+INSERT INTO city_mast VALUES('PA','Patna');
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+--Creating Status Master TABLE
+-- Giving status_id as PRIMARY KEY
+
+CREATE TABLE status_master
+(
+	status_id	CHAR(1) CONSTRAINT status_id_pk PRIMARY KEY,
+	status 		VARCHAR2(10)
+);
+
+--Inserting Values into it
+
+INSERT INTO status_master VALUES('B','BOOKED');
+INSERT INTO status_master VALUES('C','CANCELLED');
+INSERT INTO status_master VALUES('S','SCRATCHED');
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/*
+	Creating a AIRLINE Masters TABLE
+		Airline_code as PRIMARY KEY
+*/
+
+CREATE TABLE airline_master
+(
+	airline_code	CHAR(5) CONSTRAINT airl_code_pk	PRIMARY KEY,
+	airline_name	VARCHAR2(20)
+);
+
+--Inserting values into Airline Masters TABLE
+
+INSERT INTO airline_master VALUES ('IG','IndiGo');
+INSERT INTO airline_master VALUES ('AI','Air India');
+INSERT INTO airline_master VALUES ('SJ','Spice Jet');
+INSERT INTO airline_master VALUES ('GF','Go First');
+INSERT INTO airline_master VALUES ('V','Vistara');
+INSERT INTO airline_master VALUES ('AA','AirAsia India');
+
+COMMIT;
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/* Creating Airpot Master TABLE
+	 Giving airport_code as PRIMARY KEY
+	 Adding Constraint to city_id FOREIGN KEY which reference to city_master TABLE
+*/
+
+CREATE TABLE airport_master
+(
+	airport_code	NUMBER(5) CONSTRAINT airp_code_pk PRIMARY KEY,
+	airport_name	VARCHAR2(40),
+	city_id	CHAR(5) CONSTRAINT airport_city_fk 
+			REFERENCES city_mast(city_id) ON DELETE CASCADE,
+	airport_tax	NUMBER(8,2)
+);
+
+--Inserting values into Airport Master TABLE
+
+INSERT INTO airport_master VALUES (1010,'Shamshabad Airport','HYD',1299);
+INSERT INTO airport_master VALUES (1020,'Indira Gandhi International Airport','DL',1599);
+INSERT INTO airport_master VALUES (1030,'Shivaji Maharaj Airport','MB',1099);
+INSERT INTO airport_master VALUES (1040,'Chennai International Airport','CHN',1299);
+INSERT INTO airport_master VALUES (1050,'Netaji Subash ChandraBose Airport','KL',1199);
+INSERT INTO airport_master VALUES (1060,'Kempegowda Airport','BGL',999);
+INSERT INTO airport_master VALUES (1070,'Pune International Airport','PU',599);
+INSERT INTO airport_master VALUES (1080,'JayaPrakash Narayan Airport','PA',900);
+INSERT INTO airport_master VALUES (1090,'Jaipur International Airport','JP',199);
+
+COMMIT;
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+/*
+	Creating a Flight Masters TABLE
+		Adding flight_no as PRIMARY KEY CONSTRAINT
+		Airline_code as FOREIGN KEY which reference to Airline Master TABLE
+		Class_id as FOREIGN KEY which references to Class Master TABLE.
+		Smoking_sing Attribute with CHECK CONSTRAINT
+*/
+
+CREATE TABLE flight_master
+(
+	flight_no	VARCHAR2(10) CONSTRAINT flight_no_pk PRIMARY KEY,
+	airline_code	CHAR(5) CONSTRAINT fairl_code_fk 
+			REFERENCES airline_master(airline_code) ON DELETE CASCADE,
+	class_id	NUMBER(2) CONSTRAINT f_classid_fk 
+			REFERENCES class_master(class_id) ON DELETE CASCADE,
+	smoking_sign	CHAR(3) CONSTRAINT smoke_ck CHECK(smoking_sign IN ('YES','NO'))
+);
+
+--Inserting Values INTO Flight Master TABLE
+
+INSERT INTO flight_master VALUES ('A1001','IG',2,'NO');
+INSERT INTO flight_master VALUES ('A1002','SJ',1,'NO');
+INSERT INTO flight_master VALUES ('A1003','V',2,'YES');
+INSERT INTO flight_master VALUES ('A1004','AI',1,'YES');
+INSERT INTO flight_master VALUES ('A1005','AA',0,'YES');
+INSERT INTO flight_master VALUES ('B1001','IG',1,'YES');
+INSERT INTO flight_master VALUES ('B1002','AA',0,'NO');
+INSERT INTO flight_master VALUES ('B1003','SJ',2,'NO');
+INSERT INTO flight_master VALUES ('B1004','V',0,'NO');
+INSERT INTO flight_master VALUES ('B1005','GF',2,'YES');
+
+COMMIT;
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/*
+	Creating Flight Availability TABLE
+		Adding Constraints, flight_no as FOREIGN KEY which references to Flight Master TABLE
+		Origin and Destination as FOREIGN KEY which references to Airport Master TABLE
+		Giving some attributes as COMPOSITE PRIMARY KEYS.
+*/
+
+CREATE TABLE flight_availability
+(
+	flight_no VARCHAR2(10) CONSTRAINT favail_fk 
+		REFERENCES flight_master(flight_no) ON DELETE CASCADE NOT NULL,
+	origin	NUMBER(5) CONSTRAINT f_origin_fk 
+		REFERENCES airport_master(airport_code) ON DELETE CASCADE NOT NULL,
+	destination NUMBER(5) CONSTRAINT f_dest_fk
+		REFERENCES airport_master(airport_code) ON DELETE CASCADE NOT NULL,
+	depature_time	TIMESTAMP,
+	arrival_time	TIMESTAMP,
+	flight_price	NUMBER(8,2),
+	available_seats_bc	NUMBER(5) NOT NULL,
+	booked_seats_bc	NUMBER(5) NOT NULL,
+	available_seats_ec	NUMBER(5) NOT NULL,
+	booked_seats_ec	NUMBER(5) NOT NULL,
+	CONSTRAINT f_avail_pk PRIMARY KEY (flight_no,origin,
+				destination,depature_time,arrival_time,flight_price)
+);
+
+
+--Inserting Values into Flight Availability TABLE.
+
+INSERT INTO flight_availability VALUES ('A1001',1030,1010,'01-NOV-21 13:00','01-NOV-21 14:45',2000,0,0,95,5);
+INSERT INTO flight_availability VALUES ('A1002',1060,1010,'05-NOV-21 11:15','05-NOV-21 13:00',1750,70,10,0,0);
+INSERT INTO flight_availability VALUES ('A1003',1040,1030,'25-OCT-21 08:45','25-OCT-21 10:00',1399,0,0,50,50);
+INSERT INTO flight_availability VALUES ('A1004',1010,1050,'10-DEC-21 16:00','10-DEC-21 17:00',1299,45,5,0,0);
+INSERT INTO flight_availability VALUES ('A1005',1010,1020,'21-NOV-21 23:00','22-NOV-21 00:30',4850,25,15,30,40);
+INSERT INTO flight_availability VALUES ('B1001',1020,1030,'29-NOV-21 21:15','30-NOV-21 00:00',3999,60,10,0,0);
+INSERT INTO flight_availability VALUES ('B1002',1050,1010,'01-DEC-21 15:45','01-DEC-21 17:05',1900,20,20,35,5);
+INSERT INTO flight_availability VALUES ('B1003',1050,1040,'15-NOV-21 00:00','15-NOV-21 01:30',1599,0,0,60,35);
+INSERT INTO flight_availability VALUES ('B1004',1060,1020,'12-JAN-21 13:15','12-JAN-21 17:00',6050,25,30,15,60);
+INSERT INTO flight_availability VALUES ('B1005',1040,1010,'29-OCT-21 12:00','29-OCT-21 13:50',1450,0,0,25,70);
+INSERT INTO flight_availability VALUES ('A1001',1030,1020,'03-NOV-21 18:10','30-NOV-21 20:00',2599,0,0,35,50);
+INSERT INTO flight_availability VALUES ('B1001',1020,1040,'05-DEC-21 20:15','05-DEC-21 23:30',3500,15,50,0,0);
+INSERT INTO flight_availability VALUES ('A1002',1010,1030,'10-NOV-21 20:00','10-NOV-21 21:45',2500,0,50,0,0);
+INSERT INTO flight_availability VALUES ('B1002',1010,1040,'29-OCT-21 11:00','29-OCT-21 12:30',1700,20,35,5,70);
+INSERT INTO flight_availability VALUES ('A1003',1010,1060,'20-OCT-21 14:00','20-OCT-21 16:05',1600,0,0,25,65);
+
+COMMIT;
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+/*
+	Creating Booking Details TABLE
+		Constraints with ON DELETE CONSTRAINT:
+			booking_no AS PRIMARY KEY,
+			booking_city as FOREIGN KEY which References to City Master TABLE,
+			customer_id as FOREIGN KEY which References to Customer Master TABLE,
+			class_id as FOREIGN KEY which References to Class Master TABLE,
+			airport_code as FOREIGN KEY which References to Airpot Master TABLE,
+			status_id as FOREIGN KEY which References to Status Master TABLE,
+			Some other attribues as COMPOSITE FOREIGN KEY which 
+					References to COMPOSITE PRIMARY KEYS of Flight Availability TABLE.
+*/
+
+CREATE TABLE booking_details
+(
+	booking_no	NUMBER(5) CONSTRAINT booking_pk	PRIMARY KEY,
+	booking_city	VARCHAR2(10),
+	booking_date	DATE NOT NULL,
+	customer_id	NUMBER(10) CONSTRAINT book_cust_fk	
+			REFERENCES customer_master(customer_id) ON DELETE CASCADE NOT NULL,
+	flight_no	VARCHAR2(10) NOT NULL,
+	class_id	NUMBER(2)	CONSTRAINT book_class_fk
+			REFERENCES	class_master(class_id) ON DELETE CASCADE NOT NULL,
+	airport_code	NUMBER(5) CONSTRAINT b_aircode_fk
+			REFERENCES airport_master(airport_code) ON DELETE CASCADE NOT NULL,
+	origin_name	VARCHAR2(40) NOT NULL,
+	destination_name VARCHAR2(40) NOT NULL,
+	depature_time	TIMESTAMP NOT NULL,
+	arrival_time	TIMESTAMP NOT NULL,
+	flight_price NUMBER(8,2) NOT NULL,
+	total_price NUMBER(8,2) NOT NULL,
+	amount_paid NUMBER(8,2) ,
+	amt_paid_by VARCHAR2(20),
+	balance NUMBER(8,2) NOT NULL,
+	status_id	CHAR(1) CONSTRAINT b_statusid_fk
+			REFERENCES status_master(status_id),
+	CONSTRAINT book_dtl_fk FOREIGN KEY (flight_no,depature_time,arrival_time,flight_price)
+			REFERENCES flight_availability(flight_no,depature_time,arrival_time,flight_price)
+);
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+/*
+	Creating Ticket Details TABLE
+		Constraints:
+			Ticket no. as PRIMARY KEY,
+			booking_no as FOREING KEY references to Bookings Details TABLE
+			customer_id as FOREIGN KEY references to Customer Master TABLE	
+*/
+
+CREATE TABLE ticket_details
+(
+	ticket_no	VARCHAR2(20) CONSTRAINT t_no_pk PRIMARY KEY,
+	booking_no	NUMBER(5) CONSTRAINT t_bkno_fk REFERENCES booking_details(booking_no),
+	customer_id NUMBER(5) CONSTRAINT t_custid_fk REFERENCES customer_master(customer_id)
+);
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+--Procedure 1:
+/*
+	Creating a Procedure to Show number_of_bookings, number_of_emails, 
+			number_of_phones, number_of_faxs For each Customer
+*/
+
+CREATE OR REPLACE PROCEDURE get_details(p_custid IN NUMBER) IS
+v_bookings NUMBER;
+v_emails NUMBER;
+v_phones NUMBER;
+v_faxs NUMBER;
+v_email1 customer_email.email_id1%TYPE;
+v_email2 customer_email.email_id2%TYPE;
+v_phn1 customer_phn_mast.phone1%TYPE;
+v_phn2 customer_phn_mast.phone2%TYPE;
+v_fax1 customer_fax_mast.fax_num1%TYPE;
+v_fax2 customer_fax_mast.fax_num2%TYPE;
+fname customer_master.first_name%TYPE;
+lname customer_master.last_name%TYPE;
+
+BEGIN
+	SELECT COUNT(*) INTO v_bookings FROM booking_details WHERE customer_id = p_custid;
+	SELECT first_name, last_name INTO fname, lname FROM customer_master WHERE customer_id = p_custid;
+	SELECT email_id1, email_id2 INTO v_email1,v_email2 FROM customer_email WHERE customer_id = p_custid;
+	SELECT phone1, phone2 INTO v_phn1, v_phn2 FROM customer_phn_mast WHERE customer_id = p_custid;
+	SELECT fax_num1, fax_num2 INTO v_fax1, v_fax2 FROM customer_fax_mast WHERE customer_id = p_custid;
+
+	-- No. of Emails
+	IF v_email1 IS NULL AND v_email2 IS NOT NULL THEN 
+		v_emails := 1;
+    ELSIF v_email1 IS NOT NULL AND v_email2 IS NULL THEN 
+    	v_emails := 1;
+    ELSIF v_email1 IS NOT NULL AND v_email2 IS NOT NULL THEN
+    	v_emails := 2;
+    ELSE v_emails := 0;
+    END IF;
+
+	-- No. of Phones
+	IF v_phn1 IS NULL AND v_phn2 IS NOT NULL THEN 
+		v_phones := 1;
+    ELSIF v_phn1 IS NOT NULL AND v_phn2 IS NULL THEN 
+    	v_phones := 1;
+    ELSIF v_phn1 IS NOT NULL AND v_phn2 IS NOT NULL THEN
+    	v_phones := 2;
+    ELSE v_phones := 0;
+    END IF;
+
+    -- No. of Faxs
+    IF v_fax1 IS NULL AND v_fax2 IS NOT NULL THEN 
+		v_faxs := 1;
+    ELSIF v_fax1 IS NOT NULL AND v_fax2 IS NULL THEN 
+    	v_faxs := 1;
+    ELSIF v_fax1 IS NOT NULL AND v_fax2 IS NOT NULL THEN
+    	v_faxs := 2;
+    ELSE v_faxs := 0;
+    END IF;
+    DBMS_OUTPUT.PUT_LINE ('--------------------------------------');
+    DBMS_OUTPUT.PUT_LINE ('Details of Customer of ID: '||p_custid);
+    DBMS_OUTPUT.PUT_LINE ('Name: '||INITCAP(fname)||' '||INITCAP(lname));
+	DBMS_OUTPUT.PUT_LINE ('Total Number of Bookings: '||v_bookings);
+	DBMS_OUTPUT.PUT_LINE ('Total Number of Emails: '||v_emails);
+	DBMS_OUTPUT.PUT_LINE ('Total Number of Phones: '||v_phones);
+	DBMS_OUTPUT.PUT_LINE ('Total Number of Faxs: '||v_faxs);
+	DBMS_OUTPUT.PUT_LINE ('--------------------------------------');
+	EXCEPTION
+		WHEN no_data_found THEN
+			DBMS_OUTPUT.PUT_LINE ('----Please Enter Correct Customer ID----');
+END get_details;
+/
+
+/*
+	SQL> EXEC get_details(100);
+	
+			OR
+	DECLARE
+		user NUMBER:=&USER_ID;
+	BEGIN
+		get_details(user);
+	END;
+	/
+*/
+
+OUTPUT:---
+
+SQL> EXEC get_details(100);
+--------------------------------------
+Details of Customer of ID: 100
+Name: Nithin Leo
+Total Number of Bookings: 2
+Total Number of Emails: 2
+Total Number of Phones: 2
+Total Number of Faxs: 1
+--------------------------------------
+
+PL/SQL procedure successfully completed.
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Procedure-2:
+
+/*
+	Creating a Procedure to Display all Customer's First_name, Last_name
+		Phone_no and Email. Sorting them by Customer ID
+		Taking Customer_id as Input Parameter to Procedure
+*/
+
+CREATE OR REPLACE PROCEDURE customer_details(p_cust_id IN NUMBER,
+						p_fname OUT customer_master.first_name%TYPE,
+						p_lname OUT customer_master.last_name%TYPE)
+IS
+v_id	customer_master.customer_id%TYPE;
+v_gender customer_master.gender%TYPE;
+v_age NUMBER(3);
+v_phn1	VARCHAR2(20);
+v_phn2	VARCHAR2(20);
+v_email1 customer_email.email_id1%TYPE;
+v_email2 customer_email.email_id2%TYPE;
+BEGIN
+	SELECT c.customer_id, c.first_name, c.last_name, c.gender, c.age, p.phone1, p.phone2, e.email_id1, e.email_id2
+		INTO v_id, p_fname, p_lname, v_gender, v_age, v_phn1, v_phn2, v_email1, v_email2
+			FROM customer_master c, customer_phn_mast p, customer_email e
+				WHERE c.customer_id = p.customer_id 
+					AND c.customer_id = e.customer_id AND c.customer_id = p_cust_id;
+	DBMS_OUTPUT.PUT_LINE ('-------------------------------------');
+	DBMS_OUTPUT.PUT_LINE ('-----------CUSTOMER DETAILS----------');
+	DBMS_OUTPUT.PUT_LINE ('-------------------------------------');
+	DBMS_OUTPUT.PUT_LINE ('Customer ID: '||v_id);
+	DBMS_OUTPUT.PUT_LINE ('Customer Name: '||INITCAP(p_fname)||' '||INITCAP(p_lname));
+	DBMS_OUTPUT.PUT_LINE ('Gender: '||v_gender);
+	DBMS_OUTPUT.PUT_LINE ('Age: '||v_age);
+	--USED FORMAT_PHONE Function.
+	IF v_phn1 IS NOT NULL AND v_phn2 IS NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Phone No: '||FORMAT_PHONE(v_phn1));
+	ELSIF v_phn1 IS NULL AND v_phn2 IS NOT NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Phone No: '||FORMAT_PHONE(v_phn2));
+	ELSIF v_phn1 IS NOT NULL AND v_phn2 IS NOT NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Phone No1: '||FORMAT_PHONE(v_phn1));
+		DBMS_OUTPUT.PUT_LINE ('Phone No2: '||FORMAT_PHONE(v_phn2));
+	END IF;
+	IF v_email1 IS NOT NULL AND v_email2 IS NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Email ID: '||v_email1);
+	ELSIF v_email1 IS NULL AND v_email2 IS NOT NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Email ID: '||v_email2);
+	ELSIF v_email1 IS NOT NULL AND v_email2 IS NOT NULL THEN
+		DBMS_OUTPUT.PUT_LINE ('Email ID1: '||v_email1);
+		DBMS_OUTPUT.PUT_LINE ('Email ID2: '||v_email2);
+	END IF;
+	DBMS_OUTPUT.PUT_LINE ('-------------------------------------');
+	EXCEPTION
+		WHEN no_data_found THEN
+			DBMS_OUTPUT.PUT_LINE ('-----Please Enter Correct Customer ID-----');
+			
+END customer_details;
+/
+
+/*
+	DECLARE
+		fname customer_master.first_name%TYPE;
+		lname customer_master.last_name%TYPE;
+	BEGIN
+		customer_details (101,fname,lname);
+	END;
+	/
+
+
+	CREATE OR REPLACE FUNCTION format_phone ( p_phone_no IN OUT VARCHAR2 ) RETURN VARCHAR2
+	IS
+	BEGIN
+		p_phone_no := '+91('||SUBSTR(p_phone_no,1,3)||')'||SUBSTR(p_phone_no,4,3)||'-'||SUBSTR(p_phone_no,7);
+		RETURN p_phone_no;
+	END format_phone;
+*/
+
+
+OUTPUT:---
+
+SQL> DECLARE
+  2  fname customer_master.first_name%TYPE;
+  3  lname customer_master.last_name%TYPE;
+  4  BEGIN
+  5  customer_details (101,fname,lname);
+  6  END;
+  7  /
+-------------------------------------
+-----------CUSTOMER DETAILS----------
+-------------------------------------
+Customer ID: 101
+Customer Name: Messi Leonel
+Gender: MALE
+Age: 45
+Phone No1: +91(757)012-9301
+Phone No2: +91(571)204-103
+Email ID: messi@gmail.com
+-------------------------------------
+
+PL/SQL procedure successfully completed.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Procedure-3:
+
+/*
+	Creating a Procedure to List all Customers Who did not Place any Bookings.
+*/
+
+CREATE OR REPLACE PROCEDURE no_booking_details IS
+
+CURSOR cust_dtls IS SELECT customer_id, first_name, last_name
+		FROM customer_master WHERE customer_id NOT IN ( SELECT customer_id FROM booking_details )
+			ORDER BY customer_id;
+v_id customer_master.customer_id%TYPE;
+v_fname customer_master.first_name%TYPE;
+v_lname customer_master.last_name%TYPE;
+A EXCEPTION;
+
+BEGIN
+	DBMS_OUTPUT.PUT_LINE ('----------------------------------');
+	DBMS_OUTPUT.PUT_LINE ('----Customers With No Bookings----');
+	DBMS_OUTPUT.PUT_LINE ('----------------------------------');
+	DBMS_OUTPUT.PUT_LINE ('ID:   '||'   Customer Name');
+	DBMS_OUTPUT.PUT_LINE ('--------------------------');
+	OPEN cust_dtls;
+	LOOP
+		FETCH cust_dtls INTO v_id, v_fname, v_lname;
+		IF cust_dtls%NOTFOUND AND cust_dtls%ROWCOUNT = 0 THEN
+			RAISE A;
+		END IF;
+		EXIT WHEN cust_dtls%NOTFOUND;
+		DBMS_OUTPUT.PUT_LINE ('   '||v_id||'       '||INITCAP(v_fname)||' '||INITCAP(v_lname));
+	END LOOP;
+	CLOSE cust_dtls;
+	EXCEPTION
+		WHEN A THEN
+			DBMS_OUTPUT.PUT_LINE ('--There are No Customers without Bookings--');
+		WHEN NO_DATA_FOUND THEN
+			DBMS_OUTPUT.PUT_LINE ('--OTHER Errors--');
+END no_booking_details;
+/
+
+/*
+	SQL> EXEC no_booking_details;
+*/
+
+
+OUTPUT:---
+
+SQL> EXEC no_booking_details;
+----------------------------------
+----Customers With No Bookings----
+----------------------------------
+ID:      Customer Name
+--------------------------
+101       Messi Leonel
+107       Dwane Jhonson
+109       Nizam Hyder
+
+PL/SQL procedure successfully completed.
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Procedure-4:
+
+/*
+	Creating Procedure to Show all Cancelled Bookings.
+*/
+
+CREATE OR REPLACE PROCEDURE cancelled_bookings IS
+
+CURSOR c_bookings IS SELECT booking_no, customer_id, flight_no, origin_name, destination_name, booking_city
+				FROM booking_details WHERE status_id = 'C'
+					ORDER BY booking_no, customer_id, flight_no;
+v_flag NUMBER := 0;
+BEGIN
+	DBMS_OUTPUT.PUT_LINE ('----------------------------------------');
+	DBMS_OUTPUT.PUT_LINE ('-----------CANCELLED BOOKINGS-----------');
+	DBMS_OUTPUT.PUT_LINE ('----------------------------------------');
+	FOR i IN c_bookings LOOP
+		v_flag := 1;
+		DBMS_OUTPUT.PUT_LINE ('Booking No: '||i.booking_no);
+		DBMS_OUTPUT.PUT_LINE ('Customer ID: '||i.customer_id);
+		DBMS_OUTPUT.PUT_LINE ('Flight No: '||i.flight_no);
+		DBMS_OUTPUT.PUT_LINE ('Origin: '||i.origin_name);
+		DBMS_OUTPUT.PUT_LINE ('Desination: '||i.destination_name);
+		DBMS_OUTPUT.PUT_LINE ('Booking City: '||i.booking_city);
+		DBMS_OUTPUT.PUT_LINE ('----------------------------------------');
+	END LOOP;
+	IF v_flag = 0 THEN
+		DBMS_OUTPUT.PUT_LINE ('###### NO DATA FOUND ######');
+	END IF;
+END cancelled_bookings;
+/
+
+/*
+	SQL> EXEC cancelled_bookings;
+*/
+
+
+
+OUTPUT:--
+
+SQL> EXEC cancelled_bookings;
+----------------------------------------
+-----------CANCELLED BOOKINGS-----------
+----------------------------------------
+Booking No: 1000
+Customer ID: 100
+Flight No: A1005
+Origin: Shamshabad Airport
+Desination: Indira Gandhi International Airport
+Booking City: Hyderabad
+----------------------------------------
+Booking No: 1040
+Customer ID: 104
+Flight No: B1002
+Origin: Shamshabad Airport
+Desination: Chennai International Airport
+Booking City: Mumbai
+----------------------------------------
+
+PL/SQL procedure successfully completed.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Procedure-5: 
+
+
+/*
+	Creating Procedure to do Transaction Processing i.e,
+		Customer is able to Book Flight and Result Goes to Booking Details TABLE.
+				If booked with Status 'B' Then Inserts Row in Ticket Details TABLE.
+*/
+CREATE OR REPLACE PROCEDURE book_flight(p_user IN OUT NUMBER,p_pass IN VARCHAR2,p_origin IN NUMBER,
+					p_dest IN NUMBER,p_fno IN VARCHAR2,p_amount IN NUMBER) IS
+
+c_pass VARCHAR2(20);
+fname customer_master.first_name%TYPE;
+lname customer_master.last_name%TYPE;
+ccity customer_address.city%TYPE;
+v_fno VARCHAR2(10);
+v_dtime flight_availability.depature_time%TYPE;
+v_atime flight_availability.arrival_time%TYPE;
+v_fprice NUMBER(8,2);
+a_taxprice NUMBER(8,2);
+v_ftotalprice NUMBER(8,2);
+v_balance NUMBER(8,2);
+cl_id flight_master.class_id%TYPE;
+an_origin airport_master.airport_name%TYPE;
+an_dest airport_master.airport_name%TYPE;
+v_status booking_details.status_id%TYPE;
+v_tno ticket_details.ticket_no%TYPE;
+v_bno NUMBER;
+
+BEGIN
+	SELECT password INTO c_pass 
+			FROM customer_login_dtls WHERE customer_id = p_user;
+	SELECT first_name, last_name, city INTO fname, lname, ccity
+			FROM customer_master NATURAL JOIN customer_address WHERE customer_id = p_user;
+	IF p_pass = c_pass THEN
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('LOGIN SUCESSFULL');
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('Welcome: '||fname||' '||lname);
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('AIRPORT_CODE'||'   '||'AIRPORT NAME:');
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('Selected Origin: '||p_origin);
+		DBMS_OUTPUT.PUT_LINE ('Selected Destination:  '||p_dest);
+		SELECT flight_no, depature_time, arrival_time, flight_price
+				INTO v_fno, v_dtime, v_atime, v_fprice 
+					FROM flight_availability WHERE flight_no = p_fno AND origin = p_origin
+													AND destination = p_dest ;
+		SELECT airport_tax INTO a_taxprice FROM airport_master WHERE airport_code = p_origin;
+		SELECT airport_name INTO an_origin FROM airport_master WHERE airport_code = p_origin;
+		SELECT airport_name INTO an_dest FROM airport_master WHERE airport_code = p_dest;
+		v_ftotalprice := v_fprice + a_taxprice;
+		v_balance := v_ftotalprice - p_amount;
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('Flight Details:  ');
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('Flight no. : '||v_fno);
+		DBMS_OUTPUT.PUT_LINE ('Origin: '||an_origin);
+		DBMS_OUTPUT.PUT_LINE ('Destination: '||an_dest);
+		DBMS_OUTPUT.PUT_LINE ('Depature Time: '||v_dtime);
+		DBMS_OUTPUT.PUT_LINE ('Arrival Time: '||v_atime);
+		DBMS_OUTPUT.PUT_LINE ('Flight Price: '||v_ftotalprice);
+		DBMS_OUTPUT.PUT_LINE ('Paid Amount: '||p_amount);
+		DBMS_OUTPUT.PUT_LINE ('Balance Amount: '||v_balance);
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+
+		SELECT class_id INTO cl_id FROM flight_master WHERE flight_no = v_fno;
+		IF v_balance = 0 THEN
+			v_status := 'B';
+		ELSE v_status := 'S';
+		END IF;
+
+		--changing available seats in Flight Availability TABLE.
+		IF v_status = 'S' OR v_status = 'B' THEN
+			IF cl_id = 0 THEN
+				UPDATE flight_availability 
+					SET available_seats_bc = available_seats_bc - 1,
+						booked_seats_bc = booked_seats_bc + 1,
+						available_seats_ec = available_seats_ec - 1,
+						booked_seats_ec = booked_seats_ec + 1
+						WHERE flight_no = v_fno AND origin = p_origin AND destination = p_dest;
+			ELSIF cl_id = 1 THEN
+				UPDATE flight_availability 
+					SET available_seats_bc = available_seats_bc - 1,
+						booked_seats_bc = booked_seats_bc + 1
+						WHERE flight_no = v_fno AND origin = p_origin AND destination = p_dest;
+			ELSIF cl_id = 2 THEN
+				UPDATE flight_availability
+					SET available_seats_ec = available_seats_ec - 1,
+						booked_seats_ec = booked_seats_ec + 1
+						WHERE flight_no = v_fno AND origin = p_origin AND destination = p_dest;
+			END IF;
+		END IF;
+		v_bno := booking.NEXTVAL;
+		--Inserting those Values into Booking Details TABLE.
+		INSERT INTO booking_details VALUES (v_bno,ccity,current_date,p_user,v_fno,cl_id,
+					p_origin,an_origin,an_dest,v_dtime,v_atime,v_fprice,v_ftotalprice,p_amount,
+					fname,v_balance,v_status);
+
+		--Inserting Booked Status of Booking Details into Ticket Details TABLE
+		IF v_status = 'B' THEN
+			v_tno := DBMS_RANDOM.STRING('U',10);
+			DBMS_OUTPUT.PUT_LINE ('Booking Details as been Inserted in Ticket Details TABLE.');
+			INSERT INTO ticket_details VALUES (v_tno,v_bno,p_user);
+		END IF;
+	ELSE
+		DBMS_OUTPUT.PUT_LINE ('Hello! '||INITCAP(fname)||', '||'Your PASSWORD is wrong.');
+	END IF;
+
+	EXCEPTION
+		WHEN no_data_found THEN
+			DBMS_OUTPUT.PUT_LINE ('-----No Data is Found-----');
+END book_flight;
+/
+/* 
+	--Create Sequence because used in Procedure
+
+	CREATE SEQUENCE booking
+		START WITH 1000
+		INCREMENT BY 10;
+
+
+SQL>	DECLARE
+		user NUMBER:=102;
+		pass VARCHAR2(20):='ronaldo@123';
+		origin NUMBER:=1060;
+		dest NUMBER:=1020;
+		fno VARCHAR2(10):='B1004';
+		amount NUMBER:=7049;
+	BEGIN
+		book_flight(user,pass,origin,dest,fno,amount);
+	END;
+	/
+
+
+CREATE TABLE audit_bookings ( 
+	booking_no NUMBER(5), 
+	customer_id NUMBER(10), 
+	old_status CHAR(1), 
+	new_status CHAR(1)	);
+
+
+--Creating Trigger
+CREATE OR REPLACE TRIGGER btrig
+AFTER INSERT OR UPDATE ON booking_details FOR EACH ROW
+BEGIN
+	INSERT INTO audit_bookings VALUES (:NEW.booking_no,:NEW.customer_id,:OLD.status_id,:NEW.status_id);
+END;
+/
+
+
+*/
+
+
+OUTPUT:----
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  	DECLARE
+  2     user NUMBER:=108;
+  3     pass VARCHAR2(20):='hasham123@ali';
+  4     origin NUMBER:=1010;
+  5     dest NUMBER:=1020;
+  6     fno VARCHAR2(10):='A1005';
+  7     amount NUMBER:=3000;
+  8  BEGIN
+  9     book_flight(user,pass,origin,dest,fno,amount);
+ 10* END;
+SQL> /
+------------------------------------
+LOGIN SUCESSFULL
+------------------------------------
+Welcome: Hasham Ali
+------------------------------------
+AIRPORT_CODE   AIRPORT NAME:
+------------------------------------
+Selected Origin: 1010
+Selected Destination:  1020
+------------------------------------
+Flight Details:
+------------------------------------
+Flight no. : A1005
+Origin: Shamshabad Airport
+Destination: Indira Gandhi International Airport
+Depature Time: 21-NOV-21 23.00.00.000000
+Arrival Time: 22-NOV-21 00.30.00.000000
+Flight Price: 6149
+Paid Amount: 3000
+Balance Amount: 3149
+------------------------------------
+
+PL/SQL procedure successfully completed.
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+Procedure-6:
+	
+/*
+	Creating Procedure to do Transaction Processing i.e,
+		Customer is able to CANCEL the Flight and Status in Bookings Details TABLE Changes to CANCELLED.
+			ALSO delete Ticket Information FROM Ticket Details TABLE.
+*/
+CREATE OR REPLACE PROCEDURE cancel_flight (p_user IN NUMBER, p_pass IN VARCHAR2, p_booking_no IN OUT NUMBER) IS
+c_user NUMBER;
+c_pass VARCHAR2(20);
+fname customer_master.first_name%TYPE;
+lname customer_master.last_name%TYPE;
+v_tprice NUMBER(8,2);
+v_bal NUMBER(8,2);
+v_fprice NUMBER(8,2);
+v_fno booking_details.flight_no%TYPE;
+v_return NUMBER(8,2);
+v_status CHAR(1);
+
+BEGIN
+	SELECT customer_id, password INTO c_user, c_pass 
+			FROM customer_login_dtls WHERE customer_id = p_user;
+	SELECT first_name, last_name INTO fname, lname
+			FROM customer_master WHERE customer_id = p_user;
+	IF c_pass = p_pass THEN
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('LOGIN SUCESSFULL');
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('Welcome: '||INITCAP(fname)||' '||INITCAP(lname));
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+		DBMS_OUTPUT.PUT_LINE ('CANCELLED Flight of BOOKING NO: '||p_booking_no);
+		DBMS_OUTPUT.PUT_LINE ('------------------------------------');
+
+		SELECT flight_no, flight_price, total_price, balance, status_id 
+			INTO v_fno, v_fprice, v_tprice, v_bal, v_status 
+				FROM booking_details 
+					WHERE booking_no = p_booking_no AND customer_id = p_user;
+		-- total price = flight price + airport tax
+		-- airport tax is not returned
+		v_return := v_bal - v_fprice;
+
+		IF v_status = 'B' OR v_status = 'S' THEN
+			UPDATE booking_details
+				SET status_id = 'C', balance = v_return
+					WHERE booking_no = p_booking_no AND customer_id = p_user;
+			DBMS_OUTPUT.PUT_LINE ('Remaining Amount= '||v_return||' , Will be Credited to your BANK.');
+		ELSIF v_status = 'C' THEN
+			DBMS_OUTPUT.PUT_LINE ('Flight is Already CANCELLED.');
+		END IF;
+
+		DELETE FROM ticket_details 
+			WHERE booking_no = p_booking_no AND customer_id = p_user;
+		COMMIT;
+	ELSE
+		DBMS_OUTPUT.PUT_LINE ('Hello! '||INITCAP(fname)||', '||'Your PASSWORD is wrong.');
+	END IF;
+	EXCEPTION
+		WHEN no_data_found THEN
+			DBMS_OUTPUT.PUT_LINE ('-----No Data is Found-----');
+END cancel_flight;
+/
+
+/*
+	DECLARE
+		bookno NUMBER(10) := 1000;
+	BEGIN
+		cancel_flight(100,'nithinleo12',bookno);
+	END;
+	/
+*/
+
+
+
+OUTPUT:---
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2             bookno NUMBER(10) := 1220;
+  3     BEGIN
+  4             cancel_flight(108,'hasham123@ali',bookno);
+  5*    END;
+SQL> /
+------------------------------------
+LOGIN SUCESSFULL
+------------------------------------
+Welcome: Hasham Ali
+------------------------------------
+CANCELLED Flight of BOOKING NO: 1220
+------------------------------------
+Remaining Amount= -1850 , Will be Credited to your BANK.
+
+PL/SQL procedure successfully completed.
+
+
+
+
+
+-- Audit Bookings TABLE
+
+SQL> SELECT *FROM AUDIT_BOOKINGS;
+
+BOOKING_NO CUSTOMER_ID O N
+---------- ----------- - -
+      1220         108   S
+      1220         108 S C

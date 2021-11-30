@@ -1,0 +1,1173 @@
+AIRLINE RESERVATION SYSTEM ( MONGO DB )
+
+> use airline
+switched to db airline
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+> db
+airline
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+> db.createCollection("customer_master")
+{ "ok" : 1 }
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+> db.customer_master.insert([
+{"customer_id":100,"first_name":"Nithin","last_name":"Leo","gender":"M",age:22},
+{"customer_id":101,"first_name":"Messi","last_name":"Lionel","gender":"M",age:45},
+{"customer_id":102,"first_name":"Ronaldo","last_name":"Cristiano","gender":"M",age:55},
+{"customer_id":103,"first_name":"John","last_name":"Cena","gender":"M",age:50},
+{"customer_id":104,"first_name":"Robert","last_name":"Wil","gender":"M",age:30},
+{"customer_id":105,"first_name":"Vin","last_name":"Diesel","gender":"M",age:40},
+{"customer_id":106,"first_name":"Michelle","last_name":"Rotriguze","gender":"F",age:38},
+{"customer_id":107,"first_name":"Dwane","last_name":"Jhonson","gender":"M",age:57},
+{"customer_id":108,"first_name":"Hasham","last_name":"Ali","gender":"M",age:21},
+{"customer_id":109,"first_name":"Nizam","last_name":"Hyder","gender":"M",age:23}])
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+> db.customer_master.find()
+{ "_id" : ObjectId("6184e74ef94f77792754867b"), "customer_id" : 100, "first_name" : "Nithin", "last_name" : "Leo", "gender" : "M", "age" : 22 }
+{ "_id" : ObjectId("6184e74ef94f77792754867c"), "customer_id" : 101, "first_name" : "Messi", "last_name" : "Lionel", "gender" : "M", "age" : 45 }
+{ "_id" : ObjectId("6184e74ef94f77792754867d"), "customer_id" : 102, "first_name" : "Ronaldo", "last_name" : "Cristiano", "gender" : "M", "age" : 55 }
+{ "_id" : ObjectId("6184e74ef94f77792754867e"), "customer_id" : 103, "first_name" : "John", "last_name" : "Cena", "gender" : "M", "age" : 50 }
+{ "_id" : ObjectId("6184e74ef94f77792754867f"), "customer_id" : 104, "first_name" : "Robert", "last_name" : "Wil", "gender" : "M", "age" : 30 }
+{ "_id" : ObjectId("6184e74ef94f777927548680"), "customer_id" : 105, "first_name" : "Vin", "last_name" : "Diesel", "gender" : "M", "age" : 40 }
+{ "_id" : ObjectId("6184e74ef94f777927548681"), "customer_id" : 106, "first_name" : "Michelle", "last_name" : "Rotriguze", "gender" : "F", "age" : 38 }
+{ "_id" : ObjectId("6184e74ef94f777927548682"), "customer_id" : 107, "first_name" : "Dwane", "last_name" : "Jhonson", "gender" : "M", "age" : 57 }
+{ "_id" : ObjectId("6184e74ef94f777927548683"), "customer_id" : 108, "first_name" : "Hasham", "last_name" : "Ali", "gender" : "M", "age" : 21 }
+{ "_id" : ObjectId("6184e74ef94f777927548684"), "customer_id" : 109, "first_name" : "Nizam", "last_name" : "Hyder", "gender" : "M", "age" : 23 }
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+> db.customer_master.find().pretty()
+{
+        "_id" : ObjectId("6184e74ef94f77792754867b"),
+        "customer_id" : 100,
+        "first_name" : "Nithin",
+        "last_name" : "Leo",
+        "gender" : "M",
+        "age" : 22
+}
+{
+        "_id" : ObjectId("6184e74ef94f77792754867c"),
+        "customer_id" : 101,
+        "first_name" : "Messi",
+        "last_name" : "Lionel",
+        "gender" : "M",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("6184e74ef94f77792754867d"),
+        "customer_id" : 102,
+        "first_name" : "Ronaldo",
+        "last_name" : "Cristiano",
+        "gender" : "M",
+        "age" : 55
+}
+{
+        "_id" : ObjectId("6184e74ef94f77792754867e"),
+        "customer_id" : 103,
+        "first_name" : "John",
+        "last_name" : "Cena",
+        "gender" : "M",
+        "age" : 50
+}
+{
+        "_id" : ObjectId("6184e74ef94f77792754867f"),
+        "customer_id" : 104,
+        "first_name" : "Robert",
+        "last_name" : "Wil",
+        "gender" : "M",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6184e74ef94f777927548680"),
+        "customer_id" : 105,
+        "first_name" : "Vin",
+        "last_name" : "Diesel",
+        "gender" : "M",
+        "age" : 40
+}
+{
+        "_id" : ObjectId("6184e74ef94f777927548681"),
+        "customer_id" : 106,
+        "first_name" : "Michelle",
+        "last_name" : "Rotriguze",
+        "gender" : "F",
+        "age" : 38
+}
+{
+        "_id" : ObjectId("6184e74ef94f777927548682"),
+        "customer_id" : 107,
+        "first_name" : "Dwane",
+        "last_name" : "Jhonson",
+        "gender" : "M",
+        "age" : 57
+}
+{
+        "_id" : ObjectId("6184e74ef94f777927548683"),
+        "customer_id" : 108,
+        "first_name" : "Hasham",
+        "last_name" : "Ali",
+        "gender" : "M",
+        "age" : 21
+}
+{
+        "_id" : ObjectId("6184e74ef94f777927548684"),
+        "customer_id" : 109,
+        "first_name" : "Nizam",
+        "last_name" : "Hyder",
+        "gender" : "M",
+        "age" : 23
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+> db.createCollection("customer_address")
+
+>db.customer_address.insert([
+{customer_id:100, street:"Royal Streets 101H", city:"Hyderabad", state:"Telangana", postalcode:500040},
+{customer_id:101, street:"Brindavan Colony", city:"Warangal", state:"Telangana", postalcode:540324},
+{customer_id:102, street:"Street Guys 112OH", city:"Banjara", state:"Tamil Nadu", postalcode:839694},
+{customer_id:103, street:"TRS Street 1JK", city:"Mysoore", state:"Bangalore", postalcode:239841},
+{customer_id:104, street:"Habibii Colony", city:"Mumbai", state:"Maharastra", postalcode:489211},
+{customer_id:105, street:"Netajis Colony", city:"Bombay", state:"Maharastra", postalcode:571281},
+{customer_id:106, street:"12H Street", city:"Chennai", state:"Tamil Nadu", postalcode:687191},
+{customer_id:107, street:"Niranjaan Colony", city:"kolkatha", state:"WestBengal", postalcode:772913},
+{customer_id:108, street:"Sri Bhavaan Streets 1H", city:"Calcutta", state:"WestBengal", postalcode:772891},
+{customer_id:109, street:"Dr. APJ Abdul Kalam Road", city:"Delhi", state:"New Delhi", postalcode:668124} ])
+
+
+> db.customer_address.find()
+{ "_id" : ObjectId("6184eb61f94f777927548685"), "customer_id" : 100, "street" : "Royal Streets 101H", "city" : "Hyderabad", "state" : "Telangana", "postalcode" : 500040 }
+{ "_id" : ObjectId("6184eb61f94f777927548686"), "customer_id" : 101, "street" : "Brindavan Colony", "city" : "Warangal", "state" : "Telangana", "postalcode" : 540324 }
+{ "_id" : ObjectId("6184eb61f94f777927548687"), "customer_id" : 102, "street" : "Street Guys 112OH", "city" : "Banjara", "state" : "Tamil Nadu", "postalcode" : 839694 }
+{ "_id" : ObjectId("6184eb61f94f777927548688"), "customer_id" : 103, "street" : "TRS Street 1JK", "city" : "Mysoore", "state" : "Bangalore", "postalcode" : 239841 }
+{ "_id" : ObjectId("6184eb61f94f777927548689"), "customer_id" : 104, "street" : "Habibii Colony", "city" : "Mumbai", "state" : "Maharastra", "postalcode" : 489211 }
+{ "_id" : ObjectId("6184eb61f94f77792754868a"), "customer_id" : 105, "street" : "Netajis Colony", "city" : "Bombay", "state" : "Maharastra", "postalcode" : 571281 }
+{ "_id" : ObjectId("6184eb61f94f77792754868b"), "customer_id" : 106, "street" : "12H Street", "city" : "Chennai", "state" : "Tamil Nadu", "postalcode" : 687191 }
+{ "_id" : ObjectId("6184eb61f94f77792754868c"), "customer_id" : 107, "street" : "Niranjaan Colony", "city" : "kolkatha", "state" : "WestBengal", "postalcode" : 772913 }
+{ "_id" : ObjectId("6184eb61f94f77792754868d"), "customer_id" : 108, "street" : "Sri Bhavaan Streets 1H", "city" : "Calcutta", "state" : "WestBengal", "postalcode" : 772891 }
+{ "_id" : ObjectId("6184eb61f94f77792754868e"), "customer_id" : 109, "street" : "Dr. APJ Abdul Kalam Road", "city" : "Delhi", "state" : "New Delhi", "postalcode" : 668124 }
+
+
+> db.customer_address.find().pretty()
+{
+        "_id" : ObjectId("6184eb61f94f777927548685"),
+        "customer_id" : 100,
+        "street" : "Royal Streets 101H",
+        "city" : "Hyderabad",
+        "state" : "Telangana",
+        "postalcode" : 500040
+}
+{
+        "_id" : ObjectId("6184eb61f94f777927548686"),
+        "customer_id" : 101,
+        "street" : "Brindavan Colony",
+        "city" : "Warangal",
+        "state" : "Telangana",
+        "postalcode" : 540324
+}
+{
+        "_id" : ObjectId("6184eb61f94f777927548687"),
+        "customer_id" : 102,
+        "street" : "Street Guys 112OH",
+        "city" : "Banjara",
+        "state" : "Tamil Nadu",
+        "postalcode" : 839694
+}
+{
+        "_id" : ObjectId("6184eb61f94f777927548688"),
+        "customer_id" : 103,
+        "street" : "TRS Street 1JK",
+        "city" : "Mysoore",
+        "state" : "Bangalore",
+        "postalcode" : 239841
+}
+{
+        "_id" : ObjectId("6184eb61f94f777927548689"),
+        "customer_id" : 104,
+        "street" : "Habibii Colony",
+        "city" : "Mumbai",
+        "state" : "Maharastra",
+        "postalcode" : 489211
+}
+{
+        "_id" : ObjectId("6184eb61f94f77792754868a"),
+        "customer_id" : 105,
+        "street" : "Netajis Colony",
+        "city" : "Bombay",
+        "state" : "Maharastra",
+        "postalcode" : 571281
+}
+{
+        "_id" : ObjectId("6184eb61f94f77792754868b"),
+        "customer_id" : 106,
+        "street" : "12H Street",
+        "city" : "Chennai",
+        "state" : "Tamil Nadu",
+        "postalcode" : 687191
+}
+{
+        "_id" : ObjectId("6184eb61f94f77792754868c"),
+        "customer_id" : 107,
+        "street" : "Niranjaan Colony",
+        "city" : "kolkatha",
+        "state" : "WestBengal",
+        "postalcode" : 772913
+}
+{
+        "_id" : ObjectId("6184eb61f94f77792754868d"),
+        "customer_id" : 108,
+        "street" : "Sri Bhavaan Streets 1H",
+        "city" : "Calcutta",
+        "state" : "WestBengal",
+        "postalcode" : 772891
+}
+{
+        "_id" : ObjectId("6184eb61f94f77792754868e"),
+        "customer_id" : 109,
+        "street" : "Dr. APJ Abdul Kalam Road",
+        "city" : "Delhi",
+        "state" : "New Delhi",
+        "postalcode" : 668124
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+db.createCollection("customer_email")
+
+>db.customer_email.insert([
+{customer_id:100, email_id:["nithinleo@gmail.com","leo@yahoo.in"]},
+{customer_id:101, email_id:"messi@gmail.com"},
+{customer_id:102, email_id:"ronaldo@yahoo.in"},
+{customer_id:103, email_id:"john_cena@edu.in"},
+{customer_id:104, email_id:["robert_cool@edu.in","will123@gmail.com"]},
+{customer_id:105, email_id:["vin_diesel@wipro.in","diesel_per@mail.in"]},
+{customer_id:106, email_id:["michelle_ro@gmail.com","rotrigueze@ss.in"]},
+{customer_id:107, email_id:"jhonson_dwane@yahoo.in"},
+{customer_id:108, email_id:"hasham1233@gmail.com"},
+{customer_id:109, email_id:["hyderr_n12@facebook.com","nizamh12@ed.in"]} ])
+
+
+> db.customer_email.find().pretty()
+{
+        "_id" : ObjectId("6184edd0f94f77792754868f"),
+        "customer_id" : 100,
+        "email_id" : [
+                "nithinleo@gmail.com",
+                "leo@yahoo.in"
+        ]
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548690"),
+        "customer_id" : 101,
+        "email_id" : "messi@gmail.com"
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548691"),
+        "customer_id" : 102,
+        "email_id" : "ronaldo@yahoo.in"
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548692"),
+        "customer_id" : 103,
+        "email_id" : "john_cena@edu.in"
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548693"),
+        "customer_id" : 104,
+        "email_id" : [
+                "robert_cool@edu.in",
+                "will123@gmail.com"
+        ]
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548694"),
+        "customer_id" : 105,
+        "email_id" : [
+                "vin_diesel@wipro.in",
+                "diesel_per@mail.in"
+        ]
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548695"),
+        "customer_id" : 106,
+        "email_id" : [
+                "michelle_ro@gmail.com",
+                "rotrigueze@ss.in"
+        ]
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548696"),
+        "customer_id" : 107,
+        "email_id" : "jhonson_dwane@yahoo.in"
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548697"),
+        "customer_id" : 108,
+        "email_id" : "hasham1233@gmail.com"
+}
+{
+        "_id" : ObjectId("6184edd0f94f777927548698"),
+        "customer_id" : 109,
+        "email_id" : [
+                "hyderr_n12@facebook.com",
+                "nizamh12@ed.in"
+        ]
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+>db.login_details.insert([
+{customer_id:100,password:"nithinleo12"},
+{customer_id:101,password:"messi@leo"},
+{customer_id:102,password:"ronaldo@123"},
+{customer_id:103,password:"john_cena@@"},
+{customer_id:104,password:"88robert88"},
+{customer_id:105,password:"@@vin@@"},
+{customer_id:106,password:"@#michelle12"},
+{customer_id:107,password:"d@jhonson@#"},
+{customer_id:108,password:"hasham123@ali"},
+{customer_id:109,password:"nizam@#h"}
+])
+
+> db.login_details.find().pretty()
+{
+        "_id" : ObjectId("618531bda6a301359248fd44"),
+        "customer_id" : 100,
+        "password" : "nithinleo12"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd45"),
+        "customer_id" : 101,
+        "password" : "messi@leo"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd46"),
+        "customer_id" : 102,
+        "password" : "ronaldo@123"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd47"),
+        "customer_id" : 103,
+        "password" : "john_cena@@"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd48"),
+        "customer_id" : 104,
+        "password" : "88robert88"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd49"),
+        "customer_id" : 105,
+        "password" : "@@vin@@"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd4a"),
+        "customer_id" : 106,
+        "password" : "@#michelle12"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd4b"),
+        "customer_id" : 107,
+        "password" : "d@jhonson@#"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd4c"),
+        "customer_id" : 108,
+        "password" : "hasham123@ali"
+}
+{
+        "_id" : ObjectId("618531bda6a301359248fd4d"),
+        "customer_id" : 109,
+        "password" : "nizam@#h"
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+>db.createCollection("customer")
+
+> db.customer.insert([
+{ "customer_id" : 100, "first_name" : "Nithin", "last_name" : "Leo", "gender" : "M", age:22, 
+	address : { street:"Royal Streets 101H", city:"Hyderabad", state:"Telangana", postalcode:500040}, 
+	email_id : ["nithinleo@gmail.com","leo@yahoo.in"], 
+	phone : [9391947194,7903018913], 
+	fax : "+44 (161) 999 8888"
+},
+{ "customer_id" : 101, "first_name" : "Messi", "last_name" : "Lionel", "gender" : "M", age:45,
+	address : { street:"Brindavan Colony", city:"Warangal", state:"Telangana", postalcode:540324}, 
+	email_id : "messi@gmail.com",
+	phone : [7570129301,571204103], 
+	fax : "+44 (791) 889 6491"
+},
+{ "customer_id" : 102, "first_name" : "Ronaldo", "last_name" : "Cristiano", "gender" : "M", age:55,
+	address : { street:"Street Guys 112OH", city:"Banjara", state:"Tamil Nadu", postalcode:839694}, 
+	email_id : "ronaldo@yahoo.in",
+	phone : [128012839,4691293504], 
+	fax : ["+43 (791) 012 5591","+91 (781) 661 9721"]
+},
+{ "customer_id" : 103, "first_name" : "John", "last_name" : "Cena", "gender" : "M", age:50,
+	address : { street:"TRS Street 1JK", city:"Mysoore", state:"Bangalore", postalcode:239841}, 
+	email_id : "john_cena@edu.in",
+	phone : [8801293075,6649123059], 
+	fax : "+49 (471) 764 9010"
+},
+{ "customer_id" : 104, "first_name" : "Robert", "last_name" : "Wil", "gender" : "M", age:30,
+	address : { street:"Habibii Colony", city:"Mumbai", state:"Maharastra", postalcode:489211}, 
+	email_id : ["robert_cool@edu.in","will123@gmail.com"], 
+	phone : 5712093122, 
+	fax : ["+12 (401) 847 0012","+11 (413) 999 0941"]
+},
+{ "customer_id" : 105, "first_name" : "Vin", "last_name" : "Diesel", "gender" : "M", age:40,
+	address : { street:"Netajis Colony", city:"Bombay", state:"Maharastra", postalcode:571281}, 
+	email_id : ["vin_diesel@wipro.in","diesel_per@mail.in"], 
+	phone : [21938472,5612983127]
+},
+{ "customer_id" : 106, "first_name" : "Michelle", "last_name" : "Rotriguze", "gender" : "F", age:38,
+	address : { street:"12H Street", city:"Chennai", state:"Tamil Nadu", postalcode:687191}, 
+	email_id : ["michelle_ro@gmail.com","rotrigueze@ss.in"], 
+	phone : 6219309507, 
+	fax : "+44 (001) 019 1103"
+},
+{ "customer_id" : 107, "first_name" : "Dwane", "last_name" : "Jhonson", "gender" : "M", age:57,
+	address : { street:"Niranjaan Colony", city:"kolkatha", state:"WestBengal", postalcode:772913}, 
+	email_id : "jhonson_dwane@yahoo.in", 
+	phone : 102834721, 
+	fax : ["+91 (124) 312 9714","+91 (901) 205 6948"]
+},
+{ "customer_id" : 108, "first_name" : "Hasham", "last_name" : "Ali", "gender" : "M", age:21,
+	address : { street:"Sri Bhavaan Streets 1H", city:"Calcutta", state:"WestBengal", postalcode:772891}, 
+	email_id : "hasham1233@gmail.com", 
+	phone : 7612300072, 
+	fax : "+77 (781) 771 1234"
+},
+{ "customer_id" : 109, "first_name" : "Nizam", "last_name" : "Hyder", "gender" : "M", age:23,
+	address : { street:"Dr. APJ Abdul Kalam Road", city:"Delhi", state:"New Delhi", postalcode:668124}, 
+	email_id : ["hyderr_n12@facebook.com","nizamh12@ed.in"], 
+	phone : [4712397021,5012821490], 
+	fax : ["+32 (479) 666 9000","+33 (471) 790 0000"]
+}
+])
+
+
+> db.customer.find().pretty()
+{
+        "_id" : ObjectId("61852de2f94f7779275486b2"),
+        "customer_id" : 100,
+        "first_name" : "Nithin",
+        "last_name" : "Leo",
+        "gender" : "M",
+        "age" : 22,
+        "address" : {
+                "street" : "Royal Streets 101H",
+                "city" : "Hyderabad",
+                "state" : "Telangana",
+                "postalcode" : 500040
+        },
+        "email_id" : [
+                "nithinleo@gmail.com",
+                "leo@yahoo.in"
+        ],
+        "phone" : [
+                9391947194,
+                7903018913
+        ],
+        "fax" : "+44 (161) 999 8888"
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b3"),
+        "customer_id" : 101,
+        "first_name" : "Messi",
+        "last_name" : "Lionel",
+        "gender" : "M",
+        "age" : 45,
+        "address" : {
+                "street" : "Brindavan Colony",
+                "city" : "Warangal",
+                "state" : "Telangana",
+                "postalcode" : 540324
+        },
+        "email_id" : "messi@gmail.com",
+        "phone" : [
+                7570129301,
+                571204103
+        ],
+        "fax" : "+44 (791) 889 6491"
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b4"),
+        "customer_id" : 102,
+        "first_name" : "Ronaldo",
+        "last_name" : "Cristiano",
+        "gender" : "M",
+        "age" : 55,
+        "address" : {
+                "street" : "Street Guys 112OH",
+                "city" : "Banjara",
+                "state" : "Tamil Nadu",
+                "postalcode" : 839694
+        },
+        "email_id" : "ronaldo@yahoo.in",
+        "phone" : [
+                128012839,
+                4691293504
+        ],
+        "fax" : [
+                "+43 (791) 012 5591",
+                "+91 (781) 661 9721"
+        ]
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b5"),
+        "customer_id" : 103,
+        "first_name" : "John",
+        "last_name" : "Cena",
+        "gender" : "M",
+        "age" : 50,
+        "address" : {
+                "street" : "TRS Street 1JK",
+                "city" : "Mysoore",
+                "state" : "Bangalore",
+                "postalcode" : 239841
+        },
+        "email_id" : "john_cena@edu.in",
+        "phone" : [
+                8801293075,
+                6649123059
+        ],
+        "fax" : "+49 (471) 764 9010"
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b6"),
+        "customer_id" : 104,
+        "first_name" : "Robert",
+        "last_name" : "Wil",
+        "gender" : "M",
+        "age" : 30,
+        "address" : {
+                "street" : "Habibii Colony",
+                "city" : "Mumbai",
+                "state" : "Maharastra",
+                "postalcode" : 489211
+        },
+        "email_id" : [
+                "robert_cool@edu.in",
+                "will123@gmail.com"
+        ],
+        "phone" : 5712093122,
+        "fax" : [
+                "+12 (401) 847 0012",
+                "+11 (413) 999 0941"
+        ]
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b7"),
+        "customer_id" : 105,
+        "first_name" : "Vin",
+        "last_name" : "Diesel",
+        "gender" : "M",
+        "age" : 40,
+        "address" : {
+                "street" : "Netajis Colony",
+                "city" : "Bombay",
+                "state" : "Maharastra",
+                "postalcode" : 571281
+        },
+        "email_id" : [
+                "vin_diesel@wipro.in",
+                "diesel_per@mail.in"
+        ],
+        "phone" : [
+                21938472,
+                5612983127
+        ]
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b8"),
+        "customer_id" : 106,
+        "first_name" : "Michelle",
+        "last_name" : "Rotriguze",
+        "gender" : "F",
+        "age" : 38,
+        "address" : {
+                "street" : "12H Street",
+                "city" : "Chennai",
+                "state" : "Tamil Nadu",
+                "postalcode" : 687191
+        },
+        "email_id" : [
+                "michelle_ro@gmail.com",
+                "rotrigueze@ss.in"
+        ],
+        "phone" : 6219309507,
+        "fax" : "+44 (001) 019 1103"
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486b9"),
+        "customer_id" : 107,
+        "first_name" : "Dwane",
+        "last_name" : "Jhonson",
+        "gender" : "M",
+        "age" : 57,
+        "address" : {
+                "street" : "Niranjaan Colony",
+                "city" : "kolkatha",
+                "state" : "WestBengal",
+                "postalcode" : 772913
+        },
+        "email_id" : "jhonson_dwane@yahoo.in",
+        "phone" : 102834721,
+        "fax" : [
+                "+91 (124) 312 9714",
+                "+91 (901) 205 6948"
+        ]
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486ba"),
+        "customer_id" : 108,
+        "first_name" : "Hasham",
+        "last_name" : "Ali",
+        "gender" : "M",
+        "age" : 21,
+        "address" : {
+                "street" : "Sri Bhavaan Streets 1H",
+                "city" : "Calcutta",
+                "state" : "WestBengal",
+                "postalcode" : 772891
+        },
+        "email_id" : "hasham1233@gmail.com",
+        "phone" : 7612300072,
+        "fax" : "+77 (781) 771 1234"
+}
+{
+        "_id" : ObjectId("61852de2f94f7779275486bb"),
+        "customer_id" : 109,
+        "first_name" : "Nizam",
+        "last_name" : "Hyder",
+        "gender" : "M",
+        "age" : 23,
+        "address" : {
+                "street" : "Dr. APJ Abdul Kalam Road",
+                "city" : "Delhi",
+                "state" : "New Delhi",
+                "postalcode" : 668124
+        },
+        "email_id" : [
+                "hyderr_n12@facebook.com",
+                "nizamh12@ed.in"
+        ],
+        "phone" : [
+                4712397021,
+                5012821490
+        ],
+        "fax" : [
+                "+32 (479) 666 9000",
+                "+33 (471) 790 0000"
+        ]
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+db.flight.insert([
+{ airline_code : "IG", airline_name : "IndiGo",
+	flights : [
+	{ flight_no : "A1001", class : "Economy Class", smoking_sign : "NO" },
+	{ flight_no : "B1001", class : "Business Class", smoking_sign : "YES" }
+	]
+},
+{ airline_code : "AI", airline_name : "Air India",flights : { flight_no : "A1004", class : "Business Class", smoking_sign : "YES" }
+},
+{ airline_code : "SJ", airline_name : "Spice Jet",
+	flights : [
+	{ flight_no : "A1002", class : "Business Class", smoking_sign : "NO" },
+	{ flight_no : "B1003", class : "Economy Class", smoking_sign : "NO" }
+	]
+},
+{ airline_code : "GF", airline_name : "Go First",
+	flights : { flight_no : "B1005", class : "Economy Class", smoking_sign : "YES" }
+},
+{ airline_code : "V", airline_name : "Vistara",
+	flights : [
+	{ flight_no : "A1003", class : "Economy Class", smoking_sign : "YES" },
+	{ flight_no : "B1004", class : ["Business Class","Economy Class"], smoking_sign : "NO" }
+	]
+},
+{ airline_code : "AA", airline_name : "AirAsia India",
+	flights : [
+	{ flight_no : "A1005", class : ["Business Class","Economy Class"], smoking_sign : "YES" },
+	{ flight_no : "B1002", class : ["Business Class","Economy Class"], smoking_sign : "NO" }
+	]
+}
+])
+
+
+
+> db.flight.find().pretty()
+{
+        "_id" : ObjectId("61852f08f94f7779275486bc"),
+        "airline_code" : "IG",
+        "airline_name" : "IndiGo",
+        "flights" : [
+                {
+                        "flight_no" : "A1001",
+                        "class" : "Economy Class",
+                        "smoking_sign" : "NO"
+                },
+                {
+                        "flight_no" : "B1001",
+                        "class" : "Business Class",
+                        "smoking_sign" : "YES"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("61852f08f94f7779275486bd"),
+        "airline_code" : "AI",
+        "airline_name" : "Air India",
+        "flights" : {
+                "flight_no" : "A1004",
+                "class" : "Business Class",
+                "smoking_sign" : "YES"
+        }
+}
+{
+        "_id" : ObjectId("61852f08f94f7779275486be"),
+        "airline_code" : "SJ",
+        "airline_name" : "Spice Jet",
+        "flights" : [
+                {
+                        "flight_no" : "A1002",
+                        "class" : "Business Class",
+                        "smoking_sign" : "NO"
+                },
+                {
+                        "flight_no" : "B1003",
+                        "class" : "Economy Class",
+                        "smoking_sign" : "NO"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("61852f08f94f7779275486bf"),
+        "airline_code" : "GF",
+        "airline_name" : "Go First",
+        "flights" : {
+                "flight_no" : "B1005",
+                "class" : "Economy Class",
+                "smoking_sign" : "YES"
+        }
+}
+{
+        "_id" : ObjectId("61852f08f94f7779275486c0"),
+        "airline_code" : "V",
+        "airline_name" : "Vistara",
+        "flights" : [
+                {
+                        "flight_no" : "A1003",
+                        "class" : "Economy Class",
+                        "smoking_sign" : "YES"
+                },
+                {
+                        "flight_no" : "B1004",
+                        "class" : [
+                                "Business Class",
+                                "Economy Class"
+                        ],
+                        "smoking_sign" : "NO"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("61852f08f94f7779275486c1"),
+        "airline_code" : "AA",
+        "airline_name" : "AirAsia India",
+        "flights" : [
+                {
+                        "flight_no" : "A1005",
+                        "class" : [
+                                "Business Class",
+                                "Economy Class"
+                        ],
+                        "smoking_sign" : "YES"
+                },
+                {
+                        "flight_no" : "B1002",
+                        "class" : [
+                                "Business Class",
+                                "Economy Class"
+                        ],
+                        "smoking_sign" : "NO"
+                }
+        ]
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+db.airport_master.insert([
+{ airport_code : 1010, airport_name : "Shamshabad Airport", city : "Hyderabad", airport_tax : 1299 },
+{ airport_code : 1020, airport_name : "Indira Gandhi International Airport", city : "Delhi", airport_tax : 1599 },
+{ airport_code : 1030, airport_name : "Shivaji Maharaj Airport", city : "Mumbai", airport_tax : 1099 },
+{ airport_code : 1040, airport_name : "Chennai International Airport", city : "Chennai", airport_tax : 1299 },
+{ airport_code : 1050, airport_name : "Netaji Subash ChandraBose Airport", city : "Kolkatha", airport_tax : 1199 },
+{ airport_code : 1060, airport_name : "Kempegowda Airport", city : "Bengaluru", airport_tax : 999 },
+{ airport_code : 1070, airport_name : "Pune International Airport", city : "Pune", airport_tax : 599 },
+{ airport_code : 1080, airport_name : "JayaPrakash Narayan Airport", city : "Patna", airport_tax : 900 },
+{ airport_code : 1090, airport_name : "Jaipur International Airport", city : "Jaipur", airport_tax : 199 }
+])
+
+
+> db.airport_master.find().pretty()
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c2"),
+        "airport_code" : 1010,
+        "airport_name" : "Shamshabad Airport",
+        "city" : "Hyderabad",
+        "airport_tax" : 1299
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c3"),
+        "airport_code" : 1020,
+        "airport_name" : "Indira Gandhi International Airport",
+        "city" : "Delhi",
+        "airport_tax" : 1599
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c4"),
+        "airport_code" : 1030,
+        "airport_name" : "Shivaji Maharaj Airport",
+        "city" : "Mumbai",
+        "airport_tax" : 1099
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c5"),
+        "airport_code" : 1040,
+        "airport_name" : "Chennai International Airport",
+        "city" : "Chennai",
+        "airport_tax" : 1299
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c6"),
+        "airport_code" : 1050,
+        "airport_name" : "Netaji Subash ChandraBose Airport",
+        "city" : "Kolkatha",
+        "airport_tax" : 1199
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c7"),
+        "airport_code" : 1060,
+        "airport_name" : "Kempegowda Airport",
+        "city" : "Bengaluru",
+        "airport_tax" : 999
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c8"),
+        "airport_code" : 1070,
+        "airport_name" : "Pune International Airport",
+        "city" : "Pune",
+        "airport_tax" : 599
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486c9"),
+        "airport_code" : 1080,
+        "airport_name" : "JayaPrakash Narayan Airport",
+        "city" : "Patna",
+        "airport_tax" : 900
+}
+{
+        "_id" : ObjectId("61852fb5f94f7779275486ca"),
+        "airport_code" : 1090,
+        "airport_name" : "Jaipur International Airport",
+        "city" : "Jaipur",
+        "airport_tax" : 199
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+db.flight_availability.insert([
+{ flight_no : "A1001", origin : 1030, destination : 1010, depature_time : "01-NOV-21 13.00.00.000000", arrival_time : "01-NOV-21 14.45.00.000000", flight_price : 2000, available_seats : [ { business_class : 0 }, { economy_class : 94 } ], booked_seats : [ { business_class : 0 }, { economy_class : 6 } ] 
+},
+{ flight_no :"A1002", origin : 1060, destination : 1010, depature_time : "05-NOV-21 11.15.00.000000", arrival_time : "05-NOV-21 13.00.00.000000", flight_price : 1750, available_seats : [ { business_class : 70 }, { economy_class : 0 } ], booked_seats : [ { business_class : 10 }, { economy_class : 0 } ]
+},
+{ flight_no : "A1003", origin : 1040, destination : 1030, depature_time : "25-OCT-21 08.45.00.000000", arrival_time : "25-OCT-21 10.00.00.000000", flight_price : 1399, available_seats : [ { business_class : 0 }, { economy_class : 50 } ], booked_seats : [ { business_class : 0 }, { economy_class : 50 } ]
+},
+{ flight_no : "A1004", origin : 1010, destination : 1050, depature_time : "10-DEC-21 16.00.00.000000", arrival_time : "10-DEC-21 17.00.00.000000", flight_price : 1299, available_seats : [ { business_class : 45 }, { economy_class : 0 } ], booked_seats : [ { business_class : 5 }, { economy_class : 0 } ]
+},
+{ flight_no : "A1005", origin : 1010, destination : 1020, depature_time : "21-NOV-21 23.00.00.000000", arrival_time : "22-NOV-21 00.30.00.000000", flight_price : 4850, available_seats : [ { business_class : 24 }, { economy_class : 29 } ], booked_seats : [ { business_class : 16 }, { economy_class : 41 } ]
+},
+{ flight_no : "B1001", origin : 1020, destination : 1030, depature_time : "29-NOV-21 21.15.00.000000", arrival_time : "30-NOV-21 00.00.00.000000", flight_price : 3999, available_seats : [ { business_class : 60 }, { economy_class : 0 } ], booked_seats : [ { business_class : 10 }, { economy_class : 0 } ]
+},
+{ flight_no : "B1002", origin : 1050, destination : 1010, depature_time : "01-DEC-21 15.45.00.000000", arrival_time : "01-DEC-21 17.05.00.000000", flight_price : 1900, available_seats : [ { business_class : 20 }, { economy_class : 35 } ], booked_seats : [ { business_class : 20 }, { economy_class : 5 } ]
+},
+{ flight_no :"B1003", origin : 1050, destination : 1040, depature_time : "15-NOV-21 00.00.00.000000", arrival_time : "15-NOV-21 01.30.00.000000", flight_price : 1599, available_seats : [ { business_class : 0 }, { economy_class : 60 } ], booked_seats : [ { business_class : 0 }, { economy_class : 35 } ]
+},
+{ flight_no :"B1004", origin : 1060, destination : 1020, depature_time : "12-JAN-21 13.15.00.000000", arrival_time : "12-JAN-21 17.00.00.000000", flight_price : 6050, available_seats : [ { business_class : 23 }, { economy_class : 13 } ], booked_seats : [ { business_class : 32 }, { economy_class : 62 } ]
+},
+{ flight_no :"B1005", origin : 1040, destination : 1010, depature_time : "29-OCT-21 12.00.00.000000", arrival_time : "29-OCT-21 13.50.00.000000", flight_price : 1450, available_seats : [ { business_class : 0 }, { economy_class : 25 } ], booked_seats : [ { business_class : 0 }, { economy_class : 70 } ]
+}
+])
+
+
+> db.flight_availability.find().pretty()
+{
+        "_id" : ObjectId("618539b0a6a301359248fd4e"),
+        "flight_no" : "A1001",
+        "origin" : 1030,
+        "destination" : 1010,
+        "depature_time" : "01-NOV-21 13.00.00.000000",
+        "arrival_time" : "01-NOV-21 14.45.00.000000",
+        "flight_price" : 2000,
+        "available_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 94
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 6
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd4f"),
+        "flight_no" : "A1002",
+        "origin" : 1060,
+        "destination" : 1010,
+        "depature_time" : "05-NOV-21 11.15.00.000000",
+        "arrival_time" : "05-NOV-21 13.00.00.000000",
+        "flight_price" : 1750,
+        "available_seats" : [
+                {
+                        "business_class" : 70
+                },
+                {
+                        "economy_class" : 0
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 10
+                },
+                {
+                        "economy_class" : 0
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd50"),
+        "flight_no" : "A1003",
+        "origin" : 1040,
+        "destination" : 1030,
+        "depature_time" : "25-OCT-21 08.45.00.000000",
+        "arrival_time" : "25-OCT-21 10.00.00.000000",
+        "flight_price" : 1399,
+        "available_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 50
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 50
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd51"),
+        "flight_no" : "A1004",
+        "origin" : 1010,
+        "destination" : 1050,
+        "depature_time" : "10-DEC-21 16.00.00.000000",
+        "arrival_time" : "10-DEC-21 17.00.00.000000",
+        "flight_price" : 1299,
+        "available_seats" : [
+                {
+                        "business_class" : 45
+                },
+                {
+                        "economy_class" : 0
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 5
+                },
+                {
+                        "economy_class" : 0
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd52"),
+        "flight_no" : "A1005",
+        "origin" : 1010,
+        "destination" : 1020,
+        "depature_time" : "21-NOV-21 23.00.00.000000",
+        "arrival_time" : "22-NOV-21 00.30.00.000000",
+        "flight_price" : 4850,
+        "available_seats" : [
+                {
+                        "business_class" : 24
+                },
+                {
+                        "economy_class" : 29
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 16
+                },
+                {
+                        "economy_class" : 41
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd53"),
+        "flight_no" : "B1001",
+        "origin" : 1020,
+        "destination" : 1030,
+        "depature_time" : "29-NOV-21 21.15.00.000000",
+        "arrival_time" : "30-NOV-21 00.00.00.000000",
+        "flight_price" : 3999,
+        "available_seats" : [
+                {
+                        "business_class" : 60
+                },
+                {
+                        "economy_class" : 0
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 10
+                },
+                {
+                        "economy_class" : 0
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd54"),
+        "flight_no" : "B1002",
+        "origin" : 1050,
+        "destination" : 1010,
+        "depature_time" : "01-DEC-21 15.45.00.000000",
+        "arrival_time" : "01-DEC-21 17.05.00.000000",
+        "flight_price" : 1900,
+        "available_seats" : [
+                {
+                        "business_class" : 20
+                },
+                {
+                        "economy_class" : 35
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 20
+                },
+                {
+                        "economy_class" : 5
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd55"),
+        "flight_no" : "B1003",
+        "origin" : 1050,
+        "destination" : 1040,
+        "depature_time" : "15-NOV-21 00.00.00.000000",
+        "arrival_time" : "15-NOV-21 01.30.00.000000",
+        "flight_price" : 1599,
+        "available_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 60
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 35
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd56"),
+        "flight_no" : "B1004",
+        "origin" : 1060,
+        "destination" : 1020,
+        "depature_time" : "12-JAN-21 13.15.00.000000",
+        "arrival_time" : "12-JAN-21 17.00.00.000000",
+        "flight_price" : 6050,
+        "available_seats" : [
+                {
+                        "business_class" : 23
+                },
+                {
+                        "economy_class" : 13
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 32
+                },
+                {
+                        "economy_class" : 62
+                }
+        ]
+}
+{
+        "_id" : ObjectId("618539b0a6a301359248fd57"),
+        "flight_no" : "B1005",
+        "origin" : 1040,
+        "destination" : 1010,
+        "depature_time" : "29-OCT-21 12.00.00.000000",
+        "arrival_time" : "29-OCT-21 13.50.00.000000",
+        "flight_price" : 1450,
+        "available_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 25
+                }
+        ],
+        "booked_seats" : [
+                {
+                        "business_class" : 0
+                },
+                {
+                        "economy_class" : 70
+                }
+        ]
+}
+
+
